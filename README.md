@@ -1,24 +1,7 @@
-# README
+# Rails 6 API Only Example Project
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This repo contains a Rails 6 API only example app after following the tutorial at [https://scotch.io/tutorials/build-a-restful-json-api-with-rails-5-part-one](https://scotch.io/tutorials/build-a-restful-json-api-with-rails-5-part-one)
 
-Things you may want to cover:
+It contains an API to create todo lists of items.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The API uses JWT token based authentication.
