@@ -8,9 +8,15 @@ RSpec.describe 'Items API' do
   let(:todo_id) { todo.id }
   let(:id) { items.first.id }
 
+  before { signup 'test@example.com'}
+
   # Test suite for GET /todos/:todo_id/items
   describe 'GET /todos/:todo_id/items' do
-    before { get "/todos/#{todo_id}/items" }
+    before do
+      login 'test@example.com'
+      auth_params = get_auth_params_from_login_response_headers
+      get "/todos/#{todo_id}/items", headers: auth_params
+    end
 
     context 'when todo exists' do
       it 'returns status code 200' do
@@ -37,7 +43,11 @@ RSpec.describe 'Items API' do
 
   # Test suite for GET /todos/:todo_id/items/:id
   describe 'GET /todos/:todo_id/items/:id' do
-    before { get "/todos/#{todo_id}/items/#{id}" }
+    before do
+      login 'test@example.com'
+      auth_params = get_auth_params_from_login_response_headers
+      get "/todos/#{todo_id}/items/#{id}", headers: auth_params
+    end
 
     context 'when todo item exists' do
       it 'returns status code 200' do
@@ -67,7 +77,11 @@ RSpec.describe 'Items API' do
     let(:valid_attributes) { { name: 'Visit Narnia', done: false } }
 
     context 'when request attributes are valid' do
-      before { post "/todos/#{todo_id}/items", params: valid_attributes }
+      before do
+        login 'test@example.com'
+        auth_params = get_auth_params_from_login_response_headers
+        post "/todos/#{todo_id}/items", params: valid_attributes, headers: auth_params
+      end
 
       it 'returns status code 201' do
         expect(response).to have_http_status(201)
@@ -75,7 +89,11 @@ RSpec.describe 'Items API' do
     end
 
     context 'when an invalid request' do
-      before { post "/todos/#{todo_id}/items", params: {} }
+      before do
+        login 'test@example.com'
+        auth_params = get_auth_params_from_login_response_headers
+        post "/todos/#{todo_id}/items", params: {}, headers: auth_params
+      end
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -91,7 +109,11 @@ RSpec.describe 'Items API' do
   describe 'PUT /todos/:todo_id/items/:id' do
     let(:valid_attributes) { { name: 'Mozart' } }
 
-    before { put "/todos/#{todo_id}/items/#{id}", params: valid_attributes }
+    before do
+      login 'test@example.com'
+      auth_params = get_auth_params_from_login_response_headers
+      put "/todos/#{todo_id}/items/#{id}", params: valid_attributes, headers: auth_params
+    end
 
     context 'when item exists' do
       it 'returns status code 204' do
@@ -119,7 +141,11 @@ RSpec.describe 'Items API' do
 
   # Test suite for DELETE /todos/:id
   describe 'DELETE /todos/:id' do
-    before { delete "/todos/#{todo_id}/items/#{id}" }
+    before do
+      login 'test@example.com'
+      auth_params = get_auth_params_from_login_response_headers
+      delete "/todos/#{todo_id}/items/#{id}", headers: auth_params
+    end
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)

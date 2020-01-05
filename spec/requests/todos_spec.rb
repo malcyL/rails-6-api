@@ -6,10 +6,16 @@ RSpec.describe 'Todos API', type: :request do
   let!(:todos) { create_list(:todo, 10) }
   let(:todo_id) { todos.first.id }
 
+  before { signup 'test@example.com'}
+
   # Test suite for GET /todos
   describe 'GET /todos' do
     # make HTTP get request before each example
-    before { get '/todos' }
+    before do
+      login 'test@example.com'
+      auth_params = get_auth_params_from_login_response_headers
+      get '/todos', headers: auth_params
+    end
 
     it 'returns todos' do
       # Note `json` is a custom helper to parse JSON responses
@@ -24,7 +30,11 @@ RSpec.describe 'Todos API', type: :request do
 
   # Test suite for GET /todos/:id
   describe 'GET /todos/:id' do
-    before { get "/todos/#{todo_id}" }
+    before do
+      login 'test@example.com'
+      auth_params = get_auth_params_from_login_response_headers
+      get "/todos/#{todo_id}", headers: auth_params
+    end
 
     context 'when the record exists' do
       it 'returns the todo' do
@@ -56,7 +66,11 @@ RSpec.describe 'Todos API', type: :request do
     let(:valid_attributes) { { title: 'Learn Elm', created_by: '1' } }
 
     context 'when the request is valid' do
-      before { post '/todos', params: valid_attributes }
+      before do
+        login 'test@example.com'
+        auth_params = get_auth_params_from_login_response_headers
+        post '/todos', params: valid_attributes, headers: auth_params
+      end
 
       it 'creates a todo' do
         expect(json['title']).to eq('Learn Elm')
@@ -68,7 +82,11 @@ RSpec.describe 'Todos API', type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/todos', params: { title: 'Foobar' } }
+      before do
+        login 'test@example.com'
+        auth_params = get_auth_params_from_login_response_headers
+        post '/todos', params: { title: 'Foobar' }, headers: auth_params
+      end
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -86,7 +104,11 @@ RSpec.describe 'Todos API', type: :request do
     let(:valid_attributes) { { title: 'Shopping' } }
 
     context 'when the record exists' do
-      before { put "/todos/#{todo_id}", params: valid_attributes }
+      before do
+        login 'test@example.com'
+        auth_params = get_auth_params_from_login_response_headers
+        put "/todos/#{todo_id}", params: valid_attributes, headers: auth_params
+      end
 
       it 'updates the record' do
         expect(response.body).to be_empty
@@ -100,7 +122,11 @@ RSpec.describe 'Todos API', type: :request do
 
   # Test suite for DELETE /todos/:id
   describe 'DELETE /todos/:id' do
-    before { delete "/todos/#{todo_id}" }
+    before do
+      login 'test@example.com'
+      auth_params = get_auth_params_from_login_response_headers
+      delete "/todos/#{todo_id}", headers: auth_params
+    end
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)
