@@ -10,21 +10,31 @@ RSpec.describe 'Todos API', type: :request do
 
   # Test suite for GET /todos
   describe 'GET /todos' do
-    # make HTTP get request before each example
-    before do
-      login 'test@example.com'
-      auth_params = get_auth_params_from_login_response_headers
-      get '/todos', headers: auth_params
+    context 'with access token' do
+      # make HTTP get request before each example
+      before do
+        login 'test@example.com'
+        auth_params = get_auth_params_from_login_response_headers
+        get '/todos', headers: auth_params
+      end
+
+      it 'returns todos' do
+        # Note `json` is a custom helper to parse JSON responses
+        expect(json).not_to be_empty
+        expect(json.size).to eq(10)
+      end
+
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
+      end
     end
 
-    it 'returns todos' do
-      # Note `json` is a custom helper to parse JSON responses
-      expect(json).not_to be_empty
-      expect(json.size).to eq(10)
-    end
+    context 'without access token' do
+      before { get '/todos' }
 
-    it 'returns status code 200' do
-      expect(response).to have_http_status(200)
+      it 'returns status code 401' do
+        expect(response).to have_http_status(401)
+      end
     end
   end
 
