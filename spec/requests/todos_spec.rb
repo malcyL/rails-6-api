@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # spec/requests/todos_spec.rb
 require 'rails_helper'
 
@@ -14,7 +16,7 @@ RSpec.describe 'Todos API', type: :request do
       # make HTTP get request before each example
       before do
         login 'test@example.com'
-        auth_params = get_auth_params_from_login_response_headers
+        auth_params = auth_params_from_login_response_headers
         get '/todos', headers: auth_params
       end
 
@@ -42,7 +44,7 @@ RSpec.describe 'Todos API', type: :request do
   describe 'GET /todos/:id' do
     before do
       login 'test@example.com'
-      auth_params = get_auth_params_from_login_response_headers
+      auth_params = auth_params_from_login_response_headers
       get "/todos/#{todo_id}", headers: auth_params
     end
 
@@ -78,7 +80,7 @@ RSpec.describe 'Todos API', type: :request do
     context 'when the request is valid' do
       before do
         login 'test@example.com'
-        auth_params = get_auth_params_from_login_response_headers
+        auth_params = auth_params_from_login_response_headers
         post '/todos', params: valid_attributes, headers: auth_params
       end
 
@@ -94,7 +96,7 @@ RSpec.describe 'Todos API', type: :request do
     context 'when the request is invalid' do
       before do
         login 'test@example.com'
-        auth_params = get_auth_params_from_login_response_headers
+        auth_params = auth_params_from_login_response_headers
         post '/todos', params: { title: 'Foobar' }, headers: auth_params
       end
 
@@ -116,7 +118,7 @@ RSpec.describe 'Todos API', type: :request do
     context 'when the record exists' do
       before do
         login 'test@example.com'
-        auth_params = get_auth_params_from_login_response_headers
+        auth_params = auth_params_from_login_response_headers
         put "/todos/#{todo_id}", params: valid_attributes, headers: auth_params
       end
 
@@ -134,7 +136,7 @@ RSpec.describe 'Todos API', type: :request do
   describe 'DELETE /todos/:id' do
     before do
       login 'test@example.com'
-      auth_params = get_auth_params_from_login_response_headers
+      auth_params = auth_params_from_login_response_headers
       delete "/todos/#{todo_id}", headers: auth_params
     end
 

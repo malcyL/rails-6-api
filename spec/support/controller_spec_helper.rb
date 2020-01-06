@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # spec/support/controller_spec_helper.rb
 module ControllerSpecHelper
   # # generate tokens from user id
@@ -34,7 +36,7 @@ module ControllerSpecHelper
     post '/auth/sign_in', params: { email: email, password: 'password' }.to_json, headers: { 'CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json' }
   end
 
-  def get_auth_params_from_login_response_headers
+  def auth_params_from_login_response_headers
     client = response.headers['client']
     token = response.headers['access-token']
     expiry = response.headers['expiry']

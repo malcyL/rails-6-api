@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 # app/controllers/todos_controller.rb
 class TodosController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_todo, only: [:show, :update, :destroy]
+  before_action :set_todo, only: %i[show update destroy]
 
   # GET /todos
   def index

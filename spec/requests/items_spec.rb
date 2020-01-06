@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # spec/requests/items_spec.rb
 require 'rails_helper'
 
@@ -14,7 +16,7 @@ RSpec.describe 'Items API' do
   describe 'GET /todos/:todo_id/items' do
     before do
       login 'test@example.com'
-      auth_params = get_auth_params_from_login_response_headers
+      auth_params = auth_params_from_login_response_headers
       get "/todos/#{todo_id}/items", headers: auth_params
     end
 
@@ -45,7 +47,7 @@ RSpec.describe 'Items API' do
   describe 'GET /todos/:todo_id/items/:id' do
     before do
       login 'test@example.com'
-      auth_params = get_auth_params_from_login_response_headers
+      auth_params = auth_params_from_login_response_headers
       get "/todos/#{todo_id}/items/#{id}", headers: auth_params
     end
 
@@ -79,7 +81,7 @@ RSpec.describe 'Items API' do
     context 'when request attributes are valid' do
       before do
         login 'test@example.com'
-        auth_params = get_auth_params_from_login_response_headers
+        auth_params = auth_params_from_login_response_headers
         post "/todos/#{todo_id}/items", params: valid_attributes, headers: auth_params
       end
 
@@ -91,7 +93,7 @@ RSpec.describe 'Items API' do
     context 'when an invalid request' do
       before do
         login 'test@example.com'
-        auth_params = get_auth_params_from_login_response_headers
+        auth_params = auth_params_from_login_response_headers
         post "/todos/#{todo_id}/items", params: {}, headers: auth_params
       end
 
@@ -111,7 +113,7 @@ RSpec.describe 'Items API' do
 
     before do
       login 'test@example.com'
-      auth_params = get_auth_params_from_login_response_headers
+      auth_params = auth_params_from_login_response_headers
       put "/todos/#{todo_id}/items/#{id}", params: valid_attributes, headers: auth_params
     end
 
@@ -143,7 +145,7 @@ RSpec.describe 'Items API' do
   describe 'DELETE /todos/:id' do
     before do
       login 'test@example.com'
-      auth_params = get_auth_params_from_login_response_headers
+      auth_params = auth_params_from_login_response_headers
       delete "/todos/#{todo_id}/items/#{id}", headers: auth_params
     end
 

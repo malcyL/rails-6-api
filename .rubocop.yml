@@ -1,0 +1,7 @@
+inherit_from:
+- https://relaxed.ruby.style/rubocop.yml
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+    - 'db/schema.rb'
