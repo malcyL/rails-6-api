@@ -2,11 +2,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Todos API', type: :request do
-  # initialize test data 
+  # initialize test data
   let!(:todos) { create_list(:todo, 10) }
   let(:todo_id) { todos.first.id }
 
-  before { signup 'test@example.com'}
+  before { signup 'test@example.com' }
 
   # Test suite for GET /todos
   describe 'GET /todos' do

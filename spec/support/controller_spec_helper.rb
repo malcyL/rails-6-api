@@ -27,11 +27,11 @@ module ControllerSpecHelper
   # end
 
   def signup(email)
-    post '/auth', params:  { email: email, password: 'password' }.to_json, headers: { 'CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json' }
+    post '/auth', params: { email: email, password: 'password' }.to_json, headers: { 'CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json' }
   end
 
   def login(email)
-    post '/auth/sign_in', params:  { email: email, password: 'password' }.to_json, headers: { 'CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json' }
+    post '/auth/sign_in', params: { email: email, password: 'password' }.to_json, headers: { 'CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json' }
   end
 
   def get_auth_params_from_login_response_headers

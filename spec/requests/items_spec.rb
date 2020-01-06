@@ -8,7 +8,7 @@ RSpec.describe 'Items API' do
   let(:todo_id) { todo.id }
   let(:id) { items.first.id }
 
-  before { signup 'test@example.com'}
+  before { signup 'test@example.com' }
 
   # Test suite for GET /todos/:todo_id/items
   describe 'GET /todos/:todo_id/items' do
